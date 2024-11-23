@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<main class="vh-100 bg-body-tertiary">
+    <div class="container m-auto mt-5 row gap-2 justify-content-center">
+        <h1 class="d-flex justify-content-center mb-10">Product</h1>
+        
+        {% for product in products %}
+        <div class="card col-3 p-0">
+            <img class="card-img-top" src="{{product.image.url}}" alt="Card image cap"/>
+            <div class="card-body">
+                <h3>
+                    <a class="text-decoration-none" href="">{{product.title}}</a>
+                </h3>
+                <p class="card-text">
+                    {{product.description}}
+                </p>
+                <div class="d-flex flex-column gap-2">
+                    <div class="d-flex align-items-center gap-2">
+                        <b>
+                            <small> Old price: </small>
+                        </b>
+                        <small class="text-decoration-line-through">
+                            <b class="text-danger">${{product.old_price}}</b>
+                        </small>
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                        <b>
+                            <small>Current price: </small>
+                        </b>
+                        <small class="">
+                            <b class="text-success">${{product.new_price}}</b>
+                        </small>
+                    </div>
+                </div>
+                <a
+                    href="{% url 'product_detail' pk=product.pk %}"
+                    class="mt-2 w-100 d-flex align-items-center justify-content-center font-bold btn btn-warning">
+                    <!-- <i class="bi bi-cart-plus"></i> -->
+                    View
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="d-flex justify-content-center mt-5">
+        <nav aria-label="...">
+            <ul class="pagination">
+                <li>
+                    <a  href="{% if not page_obj.has_previous %} #! {% else %} ?page={{ page_obj.previous_page_number }}{% endif %}"  class="btn  {% if not page_obj.has_previous %} btn--disabled{%endif%}"tabindex="-1">&laquo;</a>
+                </li>
+                {% for page in page_obj.paginator.page_range %}
+                <li>
+                    <a class="btn {% if page == page_obj.number %} btn--sub {% endif %}" href=" {% if page == page_obj.number %}#!{% else %}?page={{page}}{% endif %}">{{ page}}</a>
+                </li>
+
+                {%  endfor %}
+                <li>
+                    <a  href="{% if not page_obj.has_next %} #! {% else %} ?page={{ page_obj.next_page_number }}{% endif %}"  class="btn  {% if not page_obj.has_next %} btn--disabled{%endif%}"tabindex="-1">&raquo;</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</main>
+{% endblock content %}

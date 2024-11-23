@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<main class="vh-100 bg-body-tertiary">
+  <div class="container m-auto mt-5 row gap-2 justify-content-center">
+    <h1 class="d-flex justify-content-center mb-5">Your account</h1>
+    <div class="d-flex justify-content-center gap-5">
+      <img
+        style="width: 300px; border-radius: 50%"
+        src="https://cdn3.iconfinder.com/data/icons/player/128/sound-18-1024.png"
+        alt=""
+      />
+      <div class="w-50">
+        <form action="" method="post">
+          {% csrf_token %}
+
+          <div class="d-flex flex-column gap-2">
+            <input
+            name="first_name"
+              type="text"
+              class="form-control"
+              placeholder="First name"/>
+            <input
+            name="last_name"
+              type="text"
+              class="form-control"
+              placeholder="Last name"/>
+            <input
+            name="email"
+              type="email"
+              class="form-control"
+              placeholder="Email address"/>
+            <input
+            name="password1"
+              type="password"
+              class="form-control"
+              placeholder="Password"/>
+            <input
+            name="password2"
+              type="password"
+              class="form-control"
+              placeholder="Password confirmation"/>
+            <button class="btn btn-dark" type="submit">
+              Update my information
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock content %}
+
